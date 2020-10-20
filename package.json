@@ -1,0 +1,48 @@
+{
+  "name": "xivbot-nodejs",
+  "version": "0.0.1",
+  "description": "最终幻想14月儿分发中心。",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon",
+    "serve": "node dist/index.js",
+    "dist": "tsc && npm run cp:views && npm run cp:resouces",
+    "cp:views": "xcopy src\\views dist\\views\\ /s/y",
+    "cp:resouces": "xcopy src\\resources dist\\resources\\ /s/y",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YoumuKonpaku",
+  "website": "https://www.youmukonpaku.com/",
+  "license": "MIT",
+  "dependencies": {
+    "@alicloud/pop-core": "^1.7.9",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "crypto-js": "^3.1.9-1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "gm": "^1.23.1",
+    "md5": "^2.3.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.8.11",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "ws": "^7.2.1",
+    "yaml": "^2.0.0-1"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.16",
+    "@types/ejs": "^3.0.0",
+    "@types/express": "^4.17.2",
+    "@types/gm": "^1.18.7",
+    "@types/md5": "^2.2.0",
+    "@types/mongoose": "^5.7.0",
+    "@types/node-sass": "^4.11.0",
+    "@types/request": "^2.48.4",
+    "@types/ws": "^7.2.1",
+    "minecraft-status": "^0.1.2",
+    "typescript": "^3.7.5"
+  }
+}

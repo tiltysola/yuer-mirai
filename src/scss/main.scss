@@ -1,0 +1,87 @@
+.nav-side {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  width: 240px;
+  .title {
+    margin: 12px auto 24px auto;
+  }
+}
+
+.main {
+  margin-left: 240px;
+  padding: 24px;
+  .bot-list-table {
+    // thead {
+    //   tr {
+    //     th:first-child {
+    //       max-width: 136px;
+    //     }
+    //     th:nth-child(3) {
+    //       max-width: 132px;
+    //     }
+    //     th:nth-child(4) {
+    //       max-width: 116px;
+    //     }
+    //     th:nth-child(5) {
+    //       max-width: 216px;
+    //     }
+    //   }
+    // }
+    tbody {
+      tr {
+        td:first-child {
+          font-weight: bold;
+        }
+        * {
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+  .limit-height {
+    max-height: calc(100vh - 64px);
+    overflow: auto;
+  }
+  .uk-card-limit {
+    .uk-card-body {
+      max-height: calc(100vh - 216px);
+      overflow: auto;
+    }
+  }
+  .uk-inline-block {
+    display: inline-block;
+    width: 100%;
+  }
+  #user_detail {
+    ul {
+      margin: 0;
+      padding-left: 12px;
+      li {
+        list-style: none;
+        &:before {
+          content: '|-'
+        }
+      }
+    }
+  }
+}
+
+.uk-modal-dialog {
+  label {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: hsla(0,0%,51.8%,.42);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}

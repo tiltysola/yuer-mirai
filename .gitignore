@@ -1,0 +1,15 @@
+# web service files
+/.htaccess
+/.user.ini
+
+# node_modules
+/node_modules
+
+# build files
+/dist
+
+# cache files
+/src/cache/*
+
+# secret config file
+/src/configs/secret.ts

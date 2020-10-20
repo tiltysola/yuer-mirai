@@ -1,0 +1,124 @@
+<%- include('./layouts/header') %>
+  <div class="main">
+    <div class="uk-card uk-card-default" style='margin-top: 16px'>
+      <div class="uk-card-header">
+        MC用户查询
+      </div>
+      <div class="uk-card-body" id="users_list">
+        <span>服务器还没有用户呢~</span>
+      </div>
+    </div>
+    <div class="uk-card uk-card-default" style='margin-top: 16px'>
+      <div class="uk-card-header">
+        用户详细信息 => <span id="user_title" class="uk-text-primary"></span>
+      </div>
+      <div class="uk-card-body" id="user_detail">
+        <span>请先选择一个用户再查看哦~</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    let users_list = []
+    $(document).ready(() => {
+      $.ajax({
+        url: '/mc_users_list',
+        type: 'post',
+        success: (data) => {
+          let res = JSON.parse(data)
+          if (res.code == 0) {
+            users_list = res
+          }
+          trigger_users_list_update()
+        },
+        error: (err) => {
+          UIkit.modal.alert('网络通讯错误，请检查您的网络设置。详情：' + err)
+        }
+      })
+    })
+    function trigger_users_list_update () {
+      let list_name = []
+      let list = []
+      let users_list_dom = $('#users_list')
+      if (users_list.count)
+        users_list_dom.html('')
+      for (let i = 0; i < users_list.count; i++) {
+        if (list_name.indexOf(users_list.data[i]) < 0) {
+          list_name.push(users_list.data[i])
+          let button = $('<button>')
+          if (i === 0) {
+            button.attr('class', 'uk-button uk-button-text')
+          } else {
+            button.attr('class', 'uk-button uk-button-text uk-margin-left')
+          }
+          button.attr('onclick', 'handle_user_select("' + users_list.data[i] + '")')
+          button.html(users_list.data[i])
+          list.push(button)
+        }
+      }
+      users_list_dom.append(list)
+    }
+    function handle_user_select (user) {
+      $('#user_title').text(user)
+      $.ajax({
+        url: '/mc_user_detail',
+        type: 'post',
+        data: {
+          user
+        },
+        success: (data) => {
+          let res = JSON.parse(data)
+          if (res.code == 0) {
+            let user_detail = $('#user_detail')
+            user_detail.html(to_li(res.data[0]))
+            console.log(to_li(res.data[0]))
+          }
+        },
+        error: (err) => {
+          UIkit.modal.alert('网络通讯错误，请检查您的网络设置。详情：' + err)
+        }
+      })
+    }
+    function to_li (json) {
+      let li_array = $('<ul>')
+      if (Array.isArray(json)) {
+        let ul_array = $('<ul>')
+        json.forEach(v => {
+          if (v instanceof Object) {
+            // let li = $('<li>')
+            // li.append(to_li(v))
+            // ul_array.append(li)
+            ul_array.append(to_li(v))
+          } else {
+            let li = $('<li>')
+            li.text(v)
+            ul_array.append(li)
+          }
+        })
+        let li = $('<li>')
+        li.append(ul_array)
+        li_array.append(li)
+      } else {
+        let ul_array = $('<ul>')
+        Object.keys(json).forEach(v => {
+          if (json[v] instanceof Object) {
+            let li = $('<li>')
+            li.text(v + ':')
+            ul_array.append(li)
+            // let li2 = $('<li>')
+            // li2.append(to_li(json[v]))
+            // ul_array.append(li2)
+            ul_array.append(to_li(json[v]))
+          } else {
+            let li = $('<li>')
+            li.text(v + ': ' + json[v])
+            ul_array.append(li)
+          }
+        })
+        let li = $('<li>')
+        li.append(ul_array)
+        li_array.append(li)
+      }
+      return li_array
+    }
+  </script>
+<%- include('./layouts/footer') %>

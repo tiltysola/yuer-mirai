@@ -1,0 +1,87 @@
+<%- include('./layouts/header') %>
+  <div class="main">
+    <div class="uk-card uk-card-default" style='margin-top: 16px'>
+      <div class="uk-card-header">
+        图库分类一览
+      </div>
+      <div class="uk-card-body" id="gallery_category">
+        <span>现在似乎还没有分类呢，上传一张图片吧~</span>
+      </div>
+    </div>
+    <div class="uk-card uk-card-default" style='margin-top: 16px'>
+      <div class="uk-card-header">
+        月儿的私藏图库 => <span id="gallery_images_title" class="uk-text-primary"></span>
+      </div>
+      <div class="uk-card-body" id="gallery_images">
+        <span>请先选择一个分类再查看哦~</span>
+      </div>
+    </div>
+    <div id="modal_image" class="uk-flex-top" uk-modal>
+      <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
+        <button class="uk-modal-close-outside" type="button" uk-close></button>
+        <img id="modal_image_src" src="" alt="">
+      </div>
+    </div>
+  </div>
+  <script>
+    let glr
+    $(document).ready(() => {
+      $.ajax({
+        url: '/gallery_list',
+        type: 'post',
+        success: (data) => {
+          glr = JSON.parse(data)
+          trigger_gallery_list_update()
+        },
+        error: (err) => {
+          UIkit.modal.alert('网络通讯错误，请检查您的网络设置。详情：' + err)
+        }
+      })
+    })
+    function trigger_gallery_list_update () {
+      let categories_name = []
+      let categories = []
+      let gallery_category = $('#gallery_category')
+      if (glr.count)
+        gallery_category.html('')
+      for (let i = 0; i < glr.count; i++) {
+        if (categories_name.indexOf(glr.images[i].category) < 0) {
+          categories_name.push(glr.images[i].category)
+          let button = $('<button>')
+          if (i === 0) {
+            button.attr('class', 'uk-button uk-button-text')
+          } else {
+            button.attr('class', 'uk-button uk-button-text uk-margin-left')
+          }
+          button.attr('onclick', 'handle_category_select("' + glr.images[i].category + '")')
+          button.html(glr.images[i].category)
+          categories.push(button)
+        }
+      }
+      gallery_category.append(categories)
+      if (categories_name.length) {
+        handle_category_select(categories_name[0])
+      }
+    }
+    function handle_category_select (data) {
+      $('#gallery_images_title').text(data)
+      let images = []
+      let gallery_images = $('#gallery_images')
+      gallery_images.html('')
+      for (let i = 0; i < glr.count; i++) {
+        if (data === glr.images[i].category) {
+          let img = $('<img>')
+          img.attr('src', glr.images[i].link)
+          img.attr('style', 'max-height: 144px; margin: 6px 10px;')
+          img.attr('onclick', 'show_image_modal(this)')
+          images.push(img)
+        }
+      }
+      gallery_images.append(images)
+    }
+    function show_image_modal (ts) {
+      $('#modal_image_src').attr('src', ts.src)
+      UIkit.modal($('#modal_image')).show()
+    }
+  </script>
+<%- include('./layouts/footer') %>
