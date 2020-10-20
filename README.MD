@@ -1,4 +1,6 @@
 # FF14月儿分发中心
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FAlishaHawkward%2Fyuer-mirai.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FAlishaHawkward%2Fyuer-mirai?ref=badge_shield)
+
 
 体验DEMO http://yuer.acgme.cn/
 
@@ -60,3 +62,6 @@ CqHttp-Mirai-Embedded 下载地址：[GITHUB](https://github.com/yyuueexxiinngg/
 ### 协议
 
 MIT
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FAlishaHawkward%2Fyuer-mirai.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FAlishaHawkward%2Fyuer-mirai?ref=badge_large)
