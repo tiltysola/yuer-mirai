@@ -1,0 +1,7 @@
+/.htaccess
+/.user.ini
+/dist
+/node_modules
+/src/cache/*
+
+/src/configs/secret.ts

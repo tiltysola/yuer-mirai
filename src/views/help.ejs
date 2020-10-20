@@ -1,0 +1,69 @@
+<%- include('./layouts/header') %>
+  <div class="main">
+    <div uk-grid>
+      <div class="uk-width-3-5@l limit-height">
+        <div class="uk-card uk-card-default">
+          <div class="uk-card-header">
+            月華使用说明
+          </div>
+          <div class="uk-card-body">
+            <h3>相关软件下载地址：</h3>
+            <p>Java 下载地址：<a class="uk-button uk-button-text" href="https://www.java.com">Java</a></p>
+            <p>CqHttp-Mirai-Embedded 下载地址：<a class="uk-button uk-button-text" href="https://github.com/yyuueexxiinngg/cqhttp-mirai/tree/embedded">Github</a></p>
+            <h3>使用说明：</h3>
+            <ul class="uk-list">
+              <li>1. 下载 Java 运行环境。</li>
+              <li>2. 下载 CqHttp-Mirai-Embedded 客户端，放置于一个目录内。</li>
+              <li>3. 在该目录内打开一个终端，输入 <code>java -jar &lt;cqhttp-mirai-embedded.jar&gt;</code>。</li>
+              <li>4. 输入 <code>login &lt;qq number&gt; &lt;password&gt;</code> 登录QQ账号。</li>
+              <li>5. 下载月華的配置文件，将其放至于 <code>X:\Mirai\plugins\setting.yml</code>。</li>
+              <li>6. 重启Mirai。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-2-5@l limit-height">
+        <div class="uk-card uk-card-default">
+          <div class="uk-card-header">
+            月華指令列表
+          </div>
+          <div class="uk-card-body">
+            <ul id="help-info" class="uk-list uk-list-divider">
+              <!-- <li>内置帮助: !help [已完成]</li>
+              <li>延迟查询: !ping [已完成]</li>
+              <li>物品查询: !search [已完成]</li>
+              <li>本周暖暖: !nuannuan [已完成]</li>
+              <li>玄学选门: !gate [已完成]</li>
+              <li>挖宝查询: !treasure [已完成]</li>
+              <li>贪欲陷阱: !trap [已完成]</li>
+              <li>投掷子: !dice [已完成]</li>
+              <li>好涩哦~: !hso [已完成]</li>
+              <li>查看天气: !weather [已完成]</li>
+              <li>DPS统计: !dps [已完成]</li>
+              <li>副属性计算: !fsx [已完成]</li>
+              <li>宏书查询: !macro [已完成]</li>
+              <li>青魔法书: !blue [已完成]</li>
+              <li>浅草寺求签: !luck [已完成]</li>
+              <li>月儿传图: !image [已完成]</li>
+              <li>...更多请使用内置帮助...</li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(() => {
+      $.ajax({
+        url: '/help_info',
+        type: 'get',
+        success: (data) => {
+          $('#help-info').html(JSON.parse(data).data)
+        },
+        error: (err) => {
+          UIkit.modal.alert('网络通讯错误，请检查您的网络设置。详情：' + err)
+        }
+      })
+    })
+  </script>
+<%- include('./layouts/footer') %>
