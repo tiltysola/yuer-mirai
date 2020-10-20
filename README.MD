@@ -56,3 +56,7 @@ CqHttp-Mirai-Embedded 下载地址：[GITHUB](https://github.com/yyuueexxiinngg/
 4. 输入 `login <qq number> <password>` 登录QQ账号。
 5. 下载月華的配置文件，将其放至于 `X:\Mirai\plugins\setting.yml`。
 6. 重启Mirai。
+
+### 协议
+
+MIT

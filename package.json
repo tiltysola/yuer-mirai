@@ -14,7 +14,7 @@
   },
   "author": "YoumuKonpaku",
   "website": "https://www.youmukonpaku.com/",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "@alicloud/pop-core": "^1.7.9",
     "body-parser": "^1.19.0",
