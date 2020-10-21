@@ -371,6 +371,7 @@ router.get('/help_info', (req, res) => {
     '<li>★ 贪欲陷阱：!trap <数值|1-9>, 别名：' + alias.trap.join(', ') + '</li>' +
     '<li>★ 投掷子：!dice {数值|n>0|可空}, 别名：' + alias.dice.join(', ') + '</li>' +
     '<li>★ 好涩哦~：!hso {标签|可空}[Eg: miqo\'te, au_ra], 别名：' + alias.hso.join(', ') + '</li>' +
+    '<li>★ Pixiv搜图：!pixiv {标签|可空}[Eg: 魂魄妖夢], 别名：' + alias.pixiv.join(', ') + '</li>' +
     '<li>★ 月儿传图：请输入 !image 查看具体使用说明, 别名：' + alias.image.join(', ') + '</li>' +
     '<li>★ 查看天气：!weather <地图名|中文>, 别名：' + alias.weather.join(', ') + '</li>' +
     '<li>★ 浅草寺求签：!luck, 别名：' + alias.luck.join(', ') + '</li>' +

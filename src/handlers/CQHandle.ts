@@ -11,6 +11,7 @@ import {Trap_Private, Trap_Group} from '../commands/Command_trap'
 import {Nuannuan_Private, Nuannuan_Group} from '../commands/Command_nuannuan_new'
 import {Treasure_Private, Treasure_Group} from '../commands/Command_treasure'
 import {Hso_Private, Hso_Group} from '../commands/Command_hso'
+import {Pixiv_Private, Pixiv_Group} from '../commands/Command_pixiv'
 import {Weather_Private, Weather_Group} from '../commands/Command_weather'
 import {Dps_Private, Dps_Group} from '../commands/Command_dps'
 import {Fsx_Private, Fsx_Group} from '../commands/Command_fsx'
@@ -182,6 +183,8 @@ const HandlePrivateMsg = function (ws: any, msg: any, cq_info: any) {
     Treasure_Private(ws, msg.user_id, cq_info, msg_array[1])
   } else if (msg_array[0] === 'hso' || alias.hso.includes(msg_array[0])) {
     Hso_Private(ws, msg.user_id, cq_info, msg_array[1], msg_array[2])
+  } else if (msg_array[0] === 'pixiv' || alias.pixiv.includes(msg_array[0])) {
+    Pixiv_Private(ws, msg.user_id, cq_info, msg_array[1])
   } else if (msg_array[0] === 'weather' || alias.weather.includes(msg_array[0])) {
     Weather_Private(ws, msg.user_id, msg_array[1])
   } else if (msg_array[0] === 'dps' || alias.dps.includes(msg_array[0])) {
@@ -242,6 +245,8 @@ const HandleGroupMsg = function (ws: any, msg: any, cq_info: any) {
     Treasure_Group(ws, msg.group_id, cq_info, msg_array[1])
   } else if (msg_array[0] === 'hso' || alias.hso.includes(msg_array[0])) {
     Hso_Group(ws, msg.group_id, cq_info, msg_array[1], msg_array[2])
+  } else if (msg_array[0] === 'pixiv' || alias.pixiv.includes(msg_array[0])) {
+    Pixiv_Group(ws, msg.group_id, cq_info, msg_array[1])
   } else if (msg_array[0] === 'weather' || alias.weather.includes(msg_array[0])) {
     Weather_Group(ws, msg.group_id, msg_array[1])
   } else if (msg_array[0] === 'dps' || alias.dps.includes(msg_array[0])) {

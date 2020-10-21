@@ -11,6 +11,7 @@ const alias: any = {
   nuannuan: ['nn', '暖暖', '金蝶暖暖'],
   treasure: ['t', '藏宝图', '宝图', '图', '挖宝'],
   hso: ['ghs', '好色哦', '健康图'],
+  pixiv: ['pix'],
   weather: ['w', '天气'],
   dps: ['d', '伤害', '输出'],
   macro: ['m', '宏书', '宏'],
