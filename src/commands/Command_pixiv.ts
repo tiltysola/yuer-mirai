@@ -48,7 +48,7 @@ function req (tags: any, callback: any) {
             callback('当前标签图库较少，仅有：' + body.response.length + '张')
           }
           const random = Math.ceil(Math.random() * body.response.length) - 1
-          const r18 = body.response[random].tags.includes('R-18')
+          const r18 = body.response[random].tags.includes('R-18') || body.response[random].tags.includes('R-18G')
           // const id = body.response[random].id
           // reqImg(`https://pixiv.cat/${id}.png`, callback)
           console.log('[Debug]', `Req random ${random} id ${body.response[random].id}`)
