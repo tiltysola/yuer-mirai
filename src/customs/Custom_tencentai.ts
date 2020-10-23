@@ -11,9 +11,7 @@ export const TencentAI_Private = function (ws: any, user_id: any, args: any) {
 
 export const TencentAI_Group = function (ws: any, user_id: any, group_id: any, args: any) {
   // 自定义 调用TencentAI的API
-  let replySeed = Math.ceil(Math.random() * 100)
-  // 10%的概率回复 或者主动at
-  if (([780716687, 853289454].includes(group_id) && replySeed > 90) || args.includes('[CQ:at,qq=2152002367]')) {
+  if (args.includes('[CQ:at,qq=2152002367]')) {
     console.log('[Debug]', 'Receive command: TencentAI, User_ID:', user_id, ': Group_ID:', group_id, ': Msg:', args)
     // 处理消息
     const msg = args

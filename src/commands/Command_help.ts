@@ -16,7 +16,9 @@ function help () {
   return '月華FF14功能说明：\n' +
   '★ 基础指令：http://yuer.acgme.cn/help\n' +
   '★ 聊天直接 @ 机器人即可\n' +
-  '★ Powered by: 69302630'
+  '★ Powered by: 幻奏 69302630\n' +
+  '★ 博客：https://youmukonpaku.com\n' +
+  '★ 月儿已经开源啦！详情 https://github.com/AlishaHawkward/yuer-mirai'
   // return '月華FF14功能说明：\n' +
   //   '★ 物品查询：!search <物品名称>, 别名：' + alias.search.join(', ') + '\n' +
   //   '★ 本周暖暖：!nuannuan, 别名：' + alias.nuannuan.join(', ') + '\n' +

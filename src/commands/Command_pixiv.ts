@@ -5,31 +5,36 @@ import {send_private_msg, send_private_msg_wd, send_group_msg, send_group_msg_wd
 
 let cool_down = false
 
-export const Pixiv_Private = function (ws: any, user_id: any, cq_info: any, tags: any) {
-  console.log('[Debug]', 'Receive command: Hso, User_ID:', user_id, ': Tags:', tags)
-  pixiv(tags, (res: any, wd: any = 0) => {
+export const Pixiv_Private = function (ws: any, user_id: any, cq_info: any, tags: any, rage: any) {
+  console.log('[Debug]', 'Receive command: Pixiv, User_ID:', user_id, ': Tags:', tags)
+  pixiv(tags, rage, (res: any, wd: any = 0) => {
     send_private_msg_wd(ws, user_id, res, wd)
   })
 }
 
-export const Pixiv_Group = function (ws: any, group_id: any, cq_info: any, tags: any) {
-  console.log('[Debug]', 'Receive command: Hso, Group_ID:', group_id, ': Tags:', tags)
-  pixiv(tags, (res: any, wd: any = 0) => {
+export const Pixiv_Group = function (ws: any, group_id: any, cq_info: any, tags: any, rage: any) {
+  console.log('[Debug]', 'Receive command: Pixiv, Group_ID:', group_id, ': Tags:', tags)
+  pixiv(tags, rage, (res: any, wd: any = 0) => {
     send_group_msg_wd(ws, group_id, res, wd)
   })
 }
 
-function pixiv (tags: any, callback: any) {
+function pixiv (tags: any, rage: any, callback: any) {
   if (cool_down === false) {
     cool_down = true
-    req(tags, callback)
+    req(tags, rage, callback)
   } else {
     callback('上一个请求尚未结束，请稍后再试！')
   }
 }
 
-function req (tags: any, callback: any) {
-  let url = 'https://api.imjad.cn/pixiv/v1/?type=search&word=' + encodeURIComponent(tags) + '&mode=tag&order=desc&per_page=100'
+function req (tags: any, rage: any, callback: any) {
+  const forbidWords = ['R-18', 'R-18G', 'R18', 'R18G']
+  let add = '+-' + forbidWords.join('+-')
+  if (rage == 'x') {
+    add = ''
+  }
+  let url = 'https://api.imjad.cn/pixiv/v1/?type=search&word=' + encodeURIComponent(tags) + add + '&mode=tag&order=desc&per_page=100'
   request({
     url,
     method: 'get',
@@ -48,11 +53,16 @@ function req (tags: any, callback: any) {
             callback('当前标签图库较少，仅有：' + body.response.length + '张')
           }
           const random = Math.ceil(Math.random() * body.response.length) - 1
-          const r18 = body.response[random].tags.includes('R-18') || body.response[random].tags.includes('R-18G')
+          let r18 = false
+          forbidWords.forEach((v: any) => {
+            if (body.response[random].tags.includes(v)) {
+              r18 = true
+            }
+          })
           // const id = body.response[random].id
           // reqImg(`https://pixiv.cat/${id}.png`, callback)
           console.log('[Debug]', `Req random ${random} id ${body.response[random].id}`)
-          reqImg(body.response[random].image_urls.px_480mw, body.response[random].image_urls.large, r18 ? 8000 : 0, callback)
+          reqImg(body.response[random].image_urls.px_480mw, body.response[random].image_urls.large, body.response[random].tags, r18 ? 5000 : 0, callback)
         } else {
           console.log('[Error]', err)
           callback('很抱歉，月儿出现了一点小问题，没能完成你的请求。')
@@ -71,7 +81,7 @@ function req (tags: any, callback: any) {
   })
 }
 
-function reqImg (url: any, source: any, wd: any = 0, callback: any) {
+function reqImg (url: any, source: any, tags: any, wd: any = 0, callback: any) {
   request({
     url,
     method: 'get',
@@ -88,7 +98,7 @@ function reqImg (url: any, source: any, wd: any = 0, callback: any) {
           console.log('[Error]', err)
           callback('很抱歉，月儿出现了一点小问题，没能完成你的请求。')
         } else {
-          callback('[CQ:image, file=base64://' + buffer.toString('base64') + ']\n' + '图片源：' + source, wd)
+          callback('[CQ:image, file=base64://' + buffer.toString('base64') + ']\n' + '图片源：' + source + '\nTags: ' + tags.join(', '), wd)
         }
       })
     } else {

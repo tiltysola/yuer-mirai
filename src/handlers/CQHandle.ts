@@ -184,7 +184,7 @@ const HandlePrivateMsg = function (ws: any, msg: any, cq_info: any) {
   } else if (msg_array[0] === 'hso' || alias.hso.includes(msg_array[0])) {
     Hso_Private(ws, msg.user_id, cq_info, msg_array[1], msg_array[2])
   } else if (msg_array[0] === 'pixiv' || alias.pixiv.includes(msg_array[0])) {
-    Pixiv_Private(ws, msg.user_id, cq_info, msg_array[1])
+    Pixiv_Private(ws, msg.user_id, cq_info, msg_array[1], msg_array[2])
   } else if (msg_array[0] === 'weather' || alias.weather.includes(msg_array[0])) {
     Weather_Private(ws, msg.user_id, msg_array[1])
   } else if (msg_array[0] === 'dps' || alias.dps.includes(msg_array[0])) {
@@ -246,7 +246,7 @@ const HandleGroupMsg = function (ws: any, msg: any, cq_info: any) {
   } else if (msg_array[0] === 'hso' || alias.hso.includes(msg_array[0])) {
     Hso_Group(ws, msg.group_id, cq_info, msg_array[1], msg_array[2])
   } else if (msg_array[0] === 'pixiv' || alias.pixiv.includes(msg_array[0])) {
-    Pixiv_Group(ws, msg.group_id, cq_info, msg_array[1])
+    Pixiv_Group(ws, msg.group_id, cq_info, msg_array[1], msg_array[2])
   } else if (msg_array[0] === 'weather' || alias.weather.includes(msg_array[0])) {
     Weather_Group(ws, msg.group_id, msg_array[1])
   } else if (msg_array[0] === 'dps' || alias.dps.includes(msg_array[0])) {
